@@ -7,10 +7,26 @@
   </Connection>
 </Query>
 
-var results = from m in MediaTypes
-              select new
+var results = from x in Artists
+              where x.ArtistId==1
+			  orderby x.Name
+			  select new
 			  {
-			     Name =m.Name,
-				 Tracks = m.Tracks
+			      Artist = x.Name,
+				  Albums = from t in x.Albums
+				  orderby t.Title
+				  select new
+				  {  
+				      Title = t.Title,
+					  Tracks=from tr in t.Tracks
+					         select new
+				      {
+					      TrackName = tr.Name,
+						  Genre = tr.Genre.Name,
+						  MediaType = tr.MediaType.Name,
+						  Composer = tr.Composer,
+						  Milliseconds = tr.Milliseconds
+					}
+				}
 			};
 results.Dump();
