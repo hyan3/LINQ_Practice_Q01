@@ -7,11 +7,10 @@
   </Connection>
 </Query>
 
-var results = from g in Genres
-              orderby g.Name
-			  select new
+var results = from m in MediaTypes
+              select new
 			  {
-			     Genre = g.Name,
-				 TracksCount=g.Tracks.Count()
-			  };
-results.Dump("Query Math");
+			     Name =m.Name,
+				 Tracks = m.Tracks
+			};
+results.Dump();

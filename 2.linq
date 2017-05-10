@@ -7,19 +7,16 @@
   </Connection>
 </Query>
 
-var results = from g in Genres
-              where g.Name.Equals("Heavy Metal")
-			  select new
+var results = from m in MediaTypes
+              select new
 			  {
-				 TracksCount=g.Tracks.Count(),
-				 Tracks = from t in g.Tracks
+			     Name =m.Name,
+				 Tracks = from t in m.Tracks
 				          select new
 				{
 				    TrackName = t.Name,
-					AlumName = t.Album.Title,
-					Milliseconds = t.Milliseconds,
-					Size = (t.Bytes/1000) + " kb",
-					Price = t.UnitPrice
+					Album =t.Album,
+					Genre = t.Genre
 				}
-			  };
-results.Dump("More math");
+			};
+results.Dump();
